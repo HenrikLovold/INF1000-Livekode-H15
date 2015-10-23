@@ -28,7 +28,56 @@ public class Vinsystem {
 		}
 	}
 	
-	public void skrivInfo(String vin) {
+	public void meny() {
+		Scanner tast = new Scanner(System.in);
+		int valg = 0;
+		
+		System.out.println("\n\n=== MENY ===");
+		System.out.println("1: Legg til ny vin");
+		System.out.println("2: Info om en vin");
+		System.out.println("9: Avslutt");
+		
+		while((valg = Integer.parseInt(tast.nextLine())) != 9) {			
+			switch(valg) {
+				case 1:
+					leggTilNyVin();
+					break;
+				case 2:
+					System.out.print("Soeketekst: ");
+					skrivInfo(tast.nextLine());
+					break;
+				case 9:
+					System.out.println("Velkommen tilbake ved en senere anledning");
+					break;
+				case 0:
+					break;
+				default:
+					System.out.println("Ugyldig valg");
+					break;
+			}
+		}
+	}
+	
+	private void leggTilNyVin() {
+		Scanner tast = new Scanner(System.in);
+		
+		System.out.print("\nNavn: ");
+		String navn = tast.nextLine();
+		
+		System.out.print("Poeng: ");
+		int aargang = Integer.parseInt(tast.nextLine());
+		
+		System.out.println("Navn: ");
+		int poeng = Integer.parseInt(tast.nextLine());
+		
+		System.out.println("I kjeller (j hvis ja): ");
+		boolean iKjeller = tast.nextLine().equals("j") ? true : false;
+		
+		liste.put(navn, new Vin(navn, aargang, poeng, iKjeller));
+		System.out.println("Ny vin lagt til i liste: " + navn);
+	}
+	
+	private void skrivInfo(String vin) {
 		if(liste.containsKey(vin)) {
 			liste.get(vin).skrivInfo();
 		}
